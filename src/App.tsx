@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import NewTask from "./components/NewTask";
 import TaskItem from "./components/TaskItem";
 
-import { createTask, getTasks, updateTask } from "./services/api";
+import { createTask, deleteTask, getTasks, updateTask } from "./services/api";
 
 import { Task } from "./types/Task";
 
@@ -32,6 +32,11 @@ export default function App() {
     await updateTask({ ...task, completed: !task.completed });
     loadTasks();
   };
+  
+  const handleDeleteTask = async (task: Task) => {
+    await deleteTask({ ...task, completed: !task.completed });
+    loadTasks();
+  };
 
   return (
     <main className="container mx-auto my-10 max-w-3xl">
@@ -48,6 +53,7 @@ export default function App() {
               key={task.id}
               task={task}
               onCompleteTask={handleCompleteTask}
+              onDeleteTask={handleDeleteTask}
             />
           ))
         ) : (

@@ -20,3 +20,7 @@ export async function updateTask(task: Task) {
   const { data } = await api.patch(`/tasks/${task.id}`, task);
   return data;
 }
+export async function deleteTask(task: Task) {
+  const { data } = await api.delete(`/tasks/${task.id}`);
+  return data;
+}
