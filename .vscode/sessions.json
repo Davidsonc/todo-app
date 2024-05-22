@@ -80,42 +80,36 @@
     "Build Docker Images": [
       [
         {
-          "name": "postgres-pgadmin",
+          "name": "backend-postgres-pgadmin",
           "autoExecuteCommands": true,
           "icon": "person",
           "color": "terminal.ansiGreen",
           "commands": [
-            "docker stop $(docker ps -aq)",
-            "cd ../todo-app-backend",
-            "docker-compose up -d",
-            "exit"
+            "cd ../todo-app-backend;docker-compose up -d"
           ]
-        }
-      ],
-      [
-        {
-          "name": "backend",
-          "autoExecuteCommands": true,
-          "icon": "person",
-          "color": "terminal.ansiGreen",
-          "commands": [
-            "docker stop $(docker ps -aq)",
-            "cd ../todo-app-backend",
-            "docker build -t todo-app-backend .",
-            "docker run -it --rm -p 5000:5000 -e PORT=5000 -e DATABASE_URL='postgresql://postgres:devPGSQL@192.168.1.115:5432/develop?schema=public' --name container-todo-app-backend todo-app-backend"
-          ]
-        }
-      ],
-      [
+        },
         {
           "name": "frontend",
           "autoExecuteCommands": true,
           "icon": "person",
           "color": "terminal.ansiGreen",
           "commands": [
+            "cd ../todo-app-backend",
+            "docker-compose up -d",
+            "docker build -t todo-app-backend .",
             "cd ../todo-app",
             "docker build -t todo-app .",
             "docker run -it --rm -p 3000:3000 -e DATABASE_URL='postgresql://postgres:devPGSQL@192.168.1.115:5432/develop?schema=public' --name container-todo-app todo-app"
+          ]
+        },
+        {
+          "name": "backend",
+          "autoExecuteCommands": true,
+          "icon": "person",
+          "color": "terminal.ansiGreen",
+          "commands": [
+            "cd ../todo-app-backend",
+            "docker run -it --rm -p 5000:5000 -e PORT=5000 -e DATABASE_URL='postgresql://postgres:devPGSQL@192.168.1.115:5432/develop?schema=public' --name container-todo-app-backend todo-app-backend"
           ]
         }
       ]
